@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "832377642381",
+    "firebase_url": "https://vegapp-2b3c1-default-rtdb.firebaseio.com",
+    "project_id": "vegapp-2b3c1",
+    "storage_bucket": "vegapp-2b3c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:832377642381:android:0cda2fcff83788aad3b1c4",
+        "android_client_info": {
+          "package_name": "com.example.vegapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "832377642381-kbtl5h6q7bht7spn93k9p5s5p960aouf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vegapp",
+            "certificate_hash": "99724201b082cc81cf2b21214e88a102c40655d9"
+          }
+        },
+        {
+          "client_id": "832377642381-jq4napnogaa95hshol4bjs0v4ptp1p08.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPsE608PLPFOPnzDIuXc6fHzT8JfkrGKE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "832377642381-jq4napnogaa95hshol4bjs0v4ptp1p08.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
