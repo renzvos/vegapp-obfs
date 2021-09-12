@@ -8,10 +8,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Aamy's Fresh"
 include ':app'
-include ':dynamicnavigation'
-include ':rzlocation'
-include ':ecommercemain'
-include ':ecommercelisting'
-include ':ecommercecart'
-include ':ecommerceproductview'
-include ':sidechick'
+

@@ -11,13 +11,6 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/dynamicnavigation" />
-            <option value="$PROJECT_DIR$/ecommercecart" />
-            <option value="$PROJECT_DIR$/ecommercelisting" />
-            <option value="$PROJECT_DIR$/ecommercemain" />
-            <option value="$PROJECT_DIR$/ecommerceproductview" />
-            <option value="$PROJECT_DIR$/rzlocation" />
-            <option value="$PROJECT_DIR$/sidechick" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
