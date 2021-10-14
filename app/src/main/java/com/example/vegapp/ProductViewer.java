@@ -149,11 +149,12 @@ public class ProductViewer extends AppCompatActivity {
                         database.collection("products").document(firebaseCartItem.pid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
-
                                 ProductDt productDt = documentSnapshot.toObject(ProductDt.class);
-                                CartItem cartItem = new CartItem(productDt.productName,productDt.productOfferPrice, firebaseCartItem.quantity, firebaseCartItem.pid, productDt.productLink);
-                                cartClass.AddItem(cartItem);
-                                roundTag.SetText("₹" + cartClass.CalculateTotalBill());
+                                if (productDt != null) {
+                                    CartItem cartItem = new CartItem(productDt.productName, productDt.productOfferPrice, firebaseCartItem.quantity, firebaseCartItem.pid, productDt.productLink);
+                                    cartClass.AddItem(cartItem);
+                                    roundTag.SetText("₹" + cartClass.CalculateTotalBill());
+                                }
                             }
                         });
                     }
