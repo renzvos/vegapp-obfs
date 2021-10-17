@@ -7,8 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,7 +18,7 @@ import java.util.ArrayList;
 
 
 public class productsadapter extends RecyclerView.Adapter<productsadapter.ViewHolder>{
-    private ArrayList<Listings> listings;
+    ArrayList<Listings> listings;
     Context context;
     EcommerceListing.EcomlistingProductOnClick callback;
 
@@ -40,6 +42,10 @@ public class productsadapter extends RecyclerView.Adapter<productsadapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final String pname = listings.get(position).title;
+        if(listings.get(position).extension == false)
+        {
+            holder.textView.setVisibility(View.VISIBLE);
+        }
         holder.textView.setText(pname);
         verticalproducts adapter = new verticalproducts(context,listings.get(position),callback);
         holder.recyclerView.setHasFixedSize(true);

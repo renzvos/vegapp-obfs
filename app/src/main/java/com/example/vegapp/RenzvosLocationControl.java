@@ -6,9 +6,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.Looper;
 import android.provider.Settings;
 import android.util.Log;
@@ -24,6 +25,10 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 public class RenzvosLocationControl {
     FusedLocationProviderClient mFusedLocationClient;
@@ -142,8 +147,30 @@ public class RenzvosLocationControl {
             Location mLastLocation = locationResult.getLastLocation();
             Log.i(TAG, "Got Location "+ mLastLocation.getLatitude() + mLastLocation.getLongitude());
             callbacks.OnLocationResult(mLastLocation);
+            getAddressFromLocation(mLastLocation);
         }
     };
+
+    public void getAddressFromLocation(final Location location ) {
+        Thread thread = new Thread() {
+            @Override public void run() {
+                Geocoder geocoder = new Geocoder(activity.getApplicationContext() , Locale.getDefault());
+                String result = null;
+                try {
+                    List<Address> list = geocoder.getFromLocation(
+                            location.getLatitude(), location.getLongitude(), 1);
+                    if (list != null && list.size() > 0) {
+                        Address address = list.get(0);
+                        // sending back first address line and locality
+                        callbacks.OnAddressGeocoded(address);
+                    }
+                } catch (IOException e) {
+                    Log.e(TAG, "Impossible to connect to Geocoder", e);
+                }
+            }
+        };
+        thread.start();
+    }
 
 
     public interface LocationCallbacks {
@@ -152,6 +179,7 @@ public class RenzvosLocationControl {
         public void ifPermitted();
         public void ifNotPermitted();
         public void OnLocationResult(Location location);
+        public void OnAddressGeocoded(Address address);
     }
 
 }

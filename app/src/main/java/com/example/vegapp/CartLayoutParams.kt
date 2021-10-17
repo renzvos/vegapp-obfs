@@ -40,9 +40,10 @@ class CartLayoutParams internal constructor(CartItems : ArrayList<LayoutParamsIt
 }
 
  class LayoutParamsItems(
-    var ProductName: String,
-    var Price: String,
-    var Quantity: String,
-    var id: String,
-    var iconurl: String
-)
+     productName: String,
+     var ProductName: String,
+     var Price: String,
+     var Quantity: String,
+     var id: String,
+     var iconurl: String
+ )

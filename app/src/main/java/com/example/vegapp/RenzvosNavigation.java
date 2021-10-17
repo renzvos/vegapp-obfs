@@ -1,11 +1,14 @@
 package com.example.vegapp;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,13 +17,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.viewbinding.ViewBindings;
 
-import com.example.vegapp.databinding.AppBarNavigationBinding;
 import com.google.android.material.navigation.NavigationView;
-
-
+import com.example.vegapp.databinding.AppBarNavigationBinding;
 
 import java.util.ArrayList;
 
@@ -41,19 +41,19 @@ public class RenzvosNavigation {
 
     }
 
-    public void OnCreater(String Heading, String Subheading)
+    public void OnCreater(String Heading, String Subheading, Drawable SidebarImage)
     {
-        activity.setTheme(R.style.Theme_VegApp_NoActionBar);
+        activity.setTheme(R.style.Theme_Rnav_NoActionBar);
         VariableInit();
-        ChangeDrawerContent(Heading,Subheading);
+        ChangeDrawerContent(Heading,Subheading,SidebarImage);
     }
 
-    public void OnCreater(String Heading, String Subheading, int Theme)
+    public void OnCreater(String Heading, String Subheading, int Theme,Drawable SidebarImage)
     {
 
         activity.setTheme(Theme);
         VariableInit();
-        ChangeDrawerContent(Heading,Subheading);
+        ChangeDrawerContent(Heading,Subheading,SidebarImage);
     }
 
 
@@ -96,7 +96,14 @@ public class RenzvosNavigation {
                         Log.i(TAG, "Found : ");
                         Log.i(TAG, "Loading: " + pages.get(i).Title);
                         Log.i(TAG, "Loading: " + pages.get(i).id);
-                        loadFragment(pages.get(i).fragment);
+                        if(pages.get(i).Activity)
+                        {
+                            Log.i(TAG, "Mode: Activity");
+                            activity.startActivity(new Intent(activity,pages.get(i).activityclass));
+                        }else {
+                            Log.i(TAG, "Mode: Fragment");
+                            loadFragment(pages.get(i).fragment);
+                        }
                         break;
                     }
                 }
@@ -177,7 +184,7 @@ public class RenzvosNavigation {
 
     }
 
-    public void ChangeDrawerContent(String Heading , String SubHeading)
+    public void ChangeDrawerContent(String Heading , String SubHeading,Drawable SidebarImage)
     {
         NavigationView navigationView= (NavigationView) activity.findViewById (R.id.nav_view);
         View header = navigationView.getHeaderView(0);
@@ -185,6 +192,12 @@ public class RenzvosNavigation {
         heading.setText(Heading);
         TextView subheading = header.findViewById(R.id.drawersubheading);
         subheading.setText(SubHeading);
+        if(SidebarImage != null)
+        {
+            LinearLayout linearLayout = header.findViewById(R.id.navviewlayout);
+            linearLayout.setBackground(SidebarImage);
+        }
+
 
     }
 

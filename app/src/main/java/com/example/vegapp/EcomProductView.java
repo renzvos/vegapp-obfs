@@ -1,14 +1,20 @@
 package com.example.vegapp;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Paint;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -29,7 +35,18 @@ public class EcomProductView {
     public EditText Qty;
     public TextView oldunit;
     public TextView newunit;
+    public ProgressBar progressBar;
     PviewLayoutParams layoutParams;
+
+    LayoutClicks callbacks;
+    ProductSliderAdapter.SliderCallback sliderCallback = new ProductSliderAdapter.SliderCallback() {
+        @Override
+        public void Loaded() {
+            callbacks.OnImageLoaded();
+        }
+    };
+
+
 
     public EcomProductView(AppCompatActivity activity){
         this.context = activity.getApplicationContext();
@@ -45,6 +62,7 @@ public class EcomProductView {
 
     public void ProduceLayoutForActivity( int Layout,PviewHolder pviewHolder ,LayoutClicks callbacks)
     {
+        this.callbacks = callbacks;
         activity.getSupportActionBar().hide();
         activity.setContentView(Layout);
         pviewHolder.ModifyContextForActivity(activity, new PviewHolder.Holdercallbacks() {
@@ -59,6 +77,7 @@ public class EcomProductView {
 
     public View ProduceLayoutForFragment(int Layout, LayoutInflater inflater, ViewGroup container,LayoutClicks callbacks)
     {
+        this.callbacks = callbacks;
         View view =  inflater.inflate(Layout, container, false);
         Toolbar toolbar = view.findViewById(R.id.customtoolbar);
         toolbar.setVisibility(View.GONE);
@@ -77,7 +96,7 @@ public class EcomProductView {
         PicassoImageLoadingService picassoImageLoadingService= new PicassoImageLoadingService(context);
         slider.init(picassoImageLoadingService);
         slider = view.findViewById(R.id.pslider);
-        slider.setAdapter(new ProductSliderAdapter(layoutParams.imageurls));
+        slider.setAdapter(new ProductSliderAdapter(layoutParams.imageurls,sliderCallback));
         pname = view.findViewById(R.id.pname);
         OldRate = view.findViewById(R.id.oldprce);
         NewRate = view.findViewById(R.id.newprice);
@@ -85,10 +104,11 @@ public class EcomProductView {
         Qty = view.findViewById(R.id.qty);
         oldunit = view.findViewById(R.id.unitold);
         newunit = view.findViewById(R.id.unitnew);
+        progressBar = view.findViewById(R.id.ploader);
         Button QtyAdd =view.findViewById(R.id.add);
         Button Qtyremove = view.findViewById(R.id.remove);
 
-        notifyDatasetChanged(layoutParams);
+        notifyDatasetChanged(layoutParams,callbacks);
 
         QtyAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,14 +134,17 @@ public class EcomProductView {
             }
         });
 
+
+
     }
 
-    public void notifyDatasetChanged(PviewLayoutParams layoutParams)
+    public void notifyDatasetChanged(PviewLayoutParams layoutParams,LayoutClicks callbacks)
     {
         this.layoutParams = layoutParams;
-        slider.setAdapter(new ProductSliderAdapter(layoutParams.imageurls));
+        slider.setAdapter(new ProductSliderAdapter(layoutParams.imageurls,sliderCallback));
         pname.setText(layoutParams.pname);
         OldRate.setText(layoutParams.old_rate);
+        OldRate.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         NewRate.setText(layoutParams.new_rate);
         Description.setText(layoutParams.Description);
         Log.i("RZPB", "notifyDatasetChanged: " + layoutParams.punit);
@@ -145,10 +168,22 @@ public class EcomProductView {
     {
         return activity.findViewById(R.id.parent);
     }
+
+
+    public void StartLoading(){
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    public void StopLoading()
+    {
+        progressBar.setVisibility(View.INVISIBLE);
+    }
+
     public interface LayoutClicks
     {
         public void AddedtoCart(PviewLayoutParams layoutParams, int Quantity);
         public void OnClickLeftButton();
+        public void OnImageLoaded();
     }
 
 

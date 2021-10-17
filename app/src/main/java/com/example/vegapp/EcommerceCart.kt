@@ -2,6 +2,7 @@ package com.example.vegapp
 
 import android.content.Context
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -11,21 +12,24 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
+
 class EcommerceCart (activity : AppCompatActivity) {
     val activity = activity;
     var context : Context =activity.applicationContext;
-    var staticLP : CartStaticLP? = null
+    var staticLP :CartStaticLP? = null
 
     var adapter : cartproductsadapter? = null;
     var subbill : TextView? = null
     var TotalBill : TextView? = null
     var loader : ProgressBar? = null
+    var PayButton  : Button?= null
+    var PayImage : ImageView?=null
 
     init {
         context = activity.applicationContext
     }
 
-    constructor(slp: CartStaticLP, activity: AppCompatActivity) : this(activity) {
+    constructor(slp: CartStaticLP , activity: AppCompatActivity) : this(activity) {
        staticLP = slp
     }
 
@@ -39,12 +43,14 @@ class EcommerceCart (activity : AppCompatActivity) {
         loader?.visibility = View.VISIBLE
         subbill?.visibility = View.INVISIBLE
         TotalBill?.visibility = View.INVISIBLE
-        val pay = activity.findViewById<ImageView>(R.id.pay)
+        PayButton = activity.findViewById<Button>(R.id.proceedbutton)
+        PayButton?.visibility = View.INVISIBLE
+        PayImage = activity.findViewById(R.id.pay)
 
 
         val listing = activity.findViewById<View>(R.id.cartitems) as RecyclerView
 
-        pay.setOnClickListener(View.OnClickListener { //Payment Page
+        PayButton?.setOnClickListener(View.OnClickListener { //Payment Page
             cartClicks.Checkout()
         })
 
@@ -78,7 +84,7 @@ class EcommerceCart (activity : AppCompatActivity) {
         subbill?.setText(
             """
  Delivery Charge: ${classer.DeliveryCharge}
- Promo Code : 
+   
 """
         )
 
@@ -90,15 +96,15 @@ class EcommerceCart (activity : AppCompatActivity) {
         loader?.visibility = View.GONE
         subbill?.visibility = View.VISIBLE
         TotalBill?.visibility = View.VISIBLE
-
+        PayButton?.visibility = View.VISIBLE
 
     }
 
-    public fun DisplaySideCartIcon(rootView : ConstraintLayout,amount : String , callback : SideCartIcon): com.example.vegapp.RoundTag
+    public fun DisplaySideCartIcon(rootView : ConstraintLayout,amount : String , callback : SideCartIcon):RoundTag
     {
-        val sideChick = com.example.vegapp.SideChick(activity)
+        val sideChick = SideChick(activity)
         return sideChick.DisplayRoundTag(rootView,activity.getDrawable(R.drawable.carticondefault)
-        , amount, com.example.vegapp.SideChick.OnIconClick {
+        , amount, SideChick.OnIconClick {
             callback.OnSideCartClicked()
             });
 
@@ -113,6 +119,7 @@ class EcommerceCart (activity : AppCompatActivity) {
         fun Checkout()
         fun ProductClicked(pparams : LayoutParamsItems)
         fun OnClickLeftButton()
+        fun OnProductRemoved(pparams: LayoutParamsItems)
     }
 
     public interface SideCartIcon{

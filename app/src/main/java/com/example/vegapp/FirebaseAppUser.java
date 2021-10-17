@@ -5,6 +5,7 @@ import android.util.Log;
 import java.io.Serializable;
 
 public class FirebaseAppUser implements Serializable {
+    public String userdpurl = null;
     public String name = null;
     public String phone = null;
     public String email;
@@ -14,7 +15,7 @@ public class FirebaseAppUser implements Serializable {
 
     public  FirebaseAppUser(){}
 
-    public  FirebaseAppUser(String uid,String name, String email ,String phone , Location location,FirebaseCart firebaseCart)
+    public  FirebaseAppUser(String uid,String name,String userdpurl,String email ,String phone , Location location,FirebaseCart firebaseCart)
     {
         this.uid = uid;
         this.name = name;

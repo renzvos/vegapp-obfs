@@ -12,7 +12,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
-
+import com.example.vegapp.CartClass;
+import com.example.vegapp.CartItem;
+import com.example.vegapp.EcommerceCart;
+import com.example.vegapp.EcomProductView;
+import com.example.vegapp.PviewHolder;
+import com.example.vegapp.PviewLayoutParams;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -25,6 +30,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import com.example.vegapp.RoundTag;
 
 import java.util.ArrayList;
 
@@ -33,6 +39,7 @@ public class ProductViewer extends AppCompatActivity {
     String productid;
     FirebaseFirestore database;
     FirebaseUser user;
+    EcomProductView productView;
 
     EcomProductView.LayoutClicks callback = new EcomProductView.LayoutClicks() {
         @Override
@@ -52,7 +59,22 @@ public class ProductViewer extends AppCompatActivity {
                {
                    appUser.Cart.items = new ArrayList<FirebaseCartItem>();
                }
-               appUser.Cart.items.add(cartItem);
+               boolean existingflag = false;
+               for(int i = 0 ; i < appUser.Cart.items.size() ; i++)
+               {
+                   if (appUser.Cart.items.get(i).pid.equals(cartItem.pid))
+                   {
+                       appUser.Cart.items.get(i).quantity =  appUser.Cart.items.get(i).quantity + cartItem.quantity;
+                       existingflag = true;
+                       break;
+                   }
+
+               }
+               if (existingflag == false)
+               {
+                   appUser.Cart.items.add(cartItem);
+               }
+
                database.collection("users").document(user.getUid()).set(appUser);
                 }
             });
@@ -65,6 +87,11 @@ public class ProductViewer extends AppCompatActivity {
 
             finish();
         }
+
+        @Override
+        public void OnImageLoaded() {
+            productView.StopLoading();
+        }
     };
 
 
@@ -74,10 +101,11 @@ public class ProductViewer extends AppCompatActivity {
         //setContentView(R.layout.activity_product_viewer);
         user = FirebaseAuth.getInstance().getCurrentUser();
         productid = getIntent().getStringExtra("pid");
-        EcomProductView productView = new EcomProductView(this);
+        productView = new EcomProductView(this);
         PviewHolder pviewHolder = new PviewHolder(Color.parseColor("#9C11A9"),"Aamy's Fresh");
         pviewHolder.setLeftButton();
         productView.ProduceLayoutForActivity(R.layout.myntra_layout,pviewHolder,callback);
+        productView.StartLoading();
         FirebaseStorage storage = FirebaseStorage.getInstance();
         database = FirebaseFirestore.getInstance();
         final PviewLayoutParams[] layoutParams = new PviewLayoutParams[1];
@@ -106,7 +134,7 @@ public class ProductViewer extends AppCompatActivity {
                             public void onSuccess(Uri uri) {
                                 layoutParams[0].imageurls.set(finalI,uri.toString());
                                 layoutParams[0].Logall();
-                                productView.notifyDatasetChanged(layoutParams[0]);
+                                productView.notifyDatasetChanged(layoutParams[0],callback);
                             }
                         });
 
@@ -121,7 +149,7 @@ public class ProductViewer extends AppCompatActivity {
                         productDt.productUnit
                 );
                 layoutParams[0].Logall();
-                productView.notifyDatasetChanged(layoutParams[0]);
+                productView.notifyDatasetChanged(layoutParams[0],callback);
 
 
 
@@ -150,7 +178,7 @@ public class ProductViewer extends AppCompatActivity {
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                 ProductDt productDt = documentSnapshot.toObject(ProductDt.class);
-                                if (productDt != null) {
+                                if(productDt != null) {
                                     CartItem cartItem = new CartItem(productDt.productName, productDt.productOfferPrice, firebaseCartItem.quantity, firebaseCartItem.pid, productDt.productLink);
                                     cartClass.AddItem(cartItem);
                                     roundTag.SetText("₹" + cartClass.CalculateTotalBill());

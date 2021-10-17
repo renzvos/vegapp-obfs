@@ -4,6 +4,7 @@ package com.example.vegapp;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,12 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 
 public class verticalproducts extends RecyclerView.Adapter<verticalproducts.ViewHolder> {
@@ -36,7 +40,15 @@ public class verticalproducts extends RecyclerView.Adapter<verticalproducts.View
     {
         if(listing.layout == Listings.VERTICAL_LAYOUT)
         {
-           return R.layout.productwide;
+            if (listing.products.get(position).feature)
+            {
+                return R.layout.productwidefeature;
+            }
+            else
+            {
+                return R.layout.productwide;
+
+            }
         }
         else if(listing.layout == Listings.HORIZONTAL_LAYOUT)
         {
@@ -60,7 +72,7 @@ public class verticalproducts extends RecyclerView.Adapter<verticalproducts.View
         View listItem = null;
         listItem = layoutInflater.inflate(viewType, parent, false);
         ViewHolder viewHolder = null;
-        if(viewType == R.layout.productsmallfeature)
+        if(viewType == R.layout.productsmallfeature || viewType == R.layout.productwidefeature)
             viewHolder = new ViewHolder(listItem,true);
         else
             viewHolder = new ViewHolder(listItem,false);
@@ -128,10 +140,11 @@ public class verticalproducts extends RecyclerView.Adapter<verticalproducts.View
             this.viewproduct = itemView.findViewById(R.id.viewproduct);
             this.mainunit = itemView.findViewById(R.id.mainunit);
 
-            if(feature){
-            this.oldprice = itemView.findViewById(R.id.subvalue);
-            this.message = itemView.findViewById(R.id.fmessage);
-            this.subunit = itemView.findViewById(R.id.subunit);}
+            if(feature) {
+                this.oldprice = itemView.findViewById(R.id.subvalue);
+                this.message = itemView.findViewById(R.id.fmessage);
+                this.subunit = itemView.findViewById(R.id.subunit);
+            }
         }
     }
 }
