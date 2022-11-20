@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
@@ -24,7 +24,7 @@
             <ImageView
                 android:id="@+id/pimage"
                 android:layout_width="200dp"
-                android:layout_height="200dp"
+                android:layout_height="150dp"
                 android:scaleType="centerCrop"
                 />
 
@@ -32,18 +32,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/fmessage"
+                android:textSize="10sp"
                 android:textColor="#8E24AA"
-                android:layout_margin="5dp"
+                android:layout_marginStart="5dp"
                 android:text="100% OFF"/>
 
             <TextView
                 android:id="@+id/pnamer"
                 android:textColor="#0C0023"
-                android:textSize="20dp"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_marginStart="5dp"
                 android:text="Product" />
 
             <LinearLayout
@@ -62,19 +63,20 @@
                     <TextView
                         android:id="@+id/mainvalue"
                         android:layout_width="wrap_content"
-                        android:textSize="25sp"
+                        android:textSize="13sp"
                         android:textStyle="bold"
                         android:textColor="#3949AB"
                         android:layout_height="wrap_content"
-                        android:text="₹ 0 " />
+                        android:text="₹ 1000 " />
                     <TextView
                         android:id="@+id/mainunit"
                         android:layout_width="wrap_content"
-                        android:textSize="20sp"
                         android:textStyle="bold"
                         android:textColor="#3949AB"
+                        android:textSize="10sp"
+                        android:singleLine="true"
                         android:layout_height="wrap_content"
-                        android:text="/unit " />
+                        android:text="/unit" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -89,14 +91,15 @@
                         android:id="@+id/subvalue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="₹ 0"
-                        android:textSize="20sp" />
+                        android:text="₹5555"
+                        android:textSize="13sp" />
                     <TextView
                         android:id="@+id/subunit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="/unit"
-                        android:textSize="20sp" />
+                        android:singleLine="true"
+                        android:textSize="10sp" />
                 </LinearLayout>
 
 
@@ -107,10 +110,15 @@
             <Button
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:id="@+id/viewproduct"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="1sp"
+                android:lines="1"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
                 android:layout_margin="10dp"
-                android:text="VIEW PRODUCT"/>
+                android:text="V I E W    P R O D U C T"/>
 
 
 

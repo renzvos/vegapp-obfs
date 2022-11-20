@@ -45,7 +45,7 @@
                 android:layout_marginBottom="@dimen/fui_field_padding_vert"
                 app:layout_constraintTop_toBottomOf="@+id/edit_phone_number">
 
-                <com.example.vegapp.ui.phone.SpacedEditText
+                <com.aamys.fresh.ui.phone.SpacedEditText
                     android:id="@+id/confirmation_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

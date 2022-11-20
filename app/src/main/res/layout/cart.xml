@@ -70,8 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="40dp"
-                android:text="Sub total :\t\t\t\t\tRs 0/- \nDelivery Charge  \t\t\t\t \n Promo Code \n"
-                app:layout_constraintBottom_toTopOf="@+id/totalbill"
+                android:text="Sub total :\t\t\t\t\tRs 0/- \nDelivery Charge  \t\t\t\t \n  \n"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/pay"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -90,11 +89,25 @@
                 android:id="@+id/totalbill"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="50dp"
                 android:text="Bill Total :  0 /-"
                 android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/subbill"
+                app:layout_constraintStart_toStartOf="@+id/subbill"
+                app:layout_constraintTop_toBottomOf="@+id/loadingp" />
+
+            <Button
+                android:id="@+id/proceedbutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="#7CB342"
+                android:text="PROCEED TO CHECKOUT"
+                android:textColor="#fff"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/pay"
+                app:layout_constraintTop_toBottomOf="@+id/loadingp" />
 
             <ImageView
                 android:id="@+id/pay"
@@ -107,9 +120,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

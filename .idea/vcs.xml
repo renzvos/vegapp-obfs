@@ -3,9 +3,5 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/dynamicnavigation" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/ecommercecart" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/ecommercelisting" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/ecommercemain" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/ecommerceproductview" vcs="Git" />
   </component>
 </project>

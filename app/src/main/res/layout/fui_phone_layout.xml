@@ -30,7 +30,7 @@
                 app:layout_constraintBaseline_toBaselineOf="@+id/phone_layout"
                 tools:ignore="RtlHardcoded">
 
-                <com.example.vegapp.ui.phone.CountryListSpinner
+                <com.aamys.fresh.ui.phone.CountryListSpinner
                     android:id="@+id/country_list"
                     style="@style/FirebaseUI.CountrySpinner"
                     android:minEms="5"

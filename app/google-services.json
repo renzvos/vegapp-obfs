@@ -8,18 +8,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:832377642381:android:0cda2fcff83788aad3b1c4",
+        "mobilesdk_app_id": "1:832377642381:android:636a88e8b44ada96d3b1c4",
         "android_client_info": {
-          "package_name": "com.example.vegapp"
+          "package_name": "com.aamys.fresh"
         }
       },
       "oauth_client": [
         {
-          "client_id": "832377642381-kbtl5h6q7bht7spn93k9p5s5p960aouf.apps.googleusercontent.com",
+          "client_id": "832377642381-rta4h1dmcd2jhd0p0179en9svt27p7k5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.vegapp",
-            "certificate_hash": "99724201b082cc81cf2b21214e88a102c40655d9"
+            "package_name": "com.aamys.fresh",
+            "certificate_hash": "9046a1900016bd1e42e806d1fe9f4bf4772ebbf1"
           }
         },
         {

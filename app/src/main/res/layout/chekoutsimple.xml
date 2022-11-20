@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:backgroundTint="#7CB342"
-        android:text="PROCCED TO PAYMENT"
+        android:text="PROCEED TO PAYMENT"
         android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
